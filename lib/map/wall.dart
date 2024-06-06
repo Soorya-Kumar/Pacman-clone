@@ -1,4 +1,3 @@
-
   List<int> walls = [
     0,
     1,

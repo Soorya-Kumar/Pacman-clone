@@ -9,9 +9,9 @@ import 'package:dummy_app/movement/ghost_motion.dart';
 import 'package:dummy_app/map/pixel.dart';
 import 'package:dummy_app/map/wall.dart';
 import 'package:dummy_app/movement/player_motion.dart';
+import 'package:dummy_app/widgets/alert_widget.dart';
 import 'package:dummy_app/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -39,7 +39,7 @@ class _GameScreen extends State<GameScreen> {
   String ghostLast4 = "down";
 
   int score = 0;
-  int highscore = 100;
+  int highscore = 0;
 
   int player = 175;
   int ghost1 = 17;
@@ -52,7 +52,22 @@ class _GameScreen extends State<GameScreen> {
   bool mouthClosed = false;
 
   void restart() {
-    startGame();
+     setState(() {
+      player = 175;
+      ghost1 = 17;
+      ghost2 = 15;
+      ghost3 = 348;
+      ghost4 = 346;
+      isPause = false;
+      preGame = false;
+      mouthClosed = false;
+      playerLast = "right";
+      food.clear();
+      getFood();
+      highscore = score > highscore ? score : highscore;
+      score = 0;
+      Navigator.pop(context);
+    });
   }
 
   void pauseFunction(){
@@ -87,76 +102,11 @@ class _GameScreen extends State<GameScreen> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Center(child: Text("Game Over!")),
-                  content: Text('Your Score : ${(score).toString()}'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          player = 175;
-                          ghost1 = 17;
-                          ghost2 = 15;
-                          ghost3 = 348;
-                          ghost4 = 346;
-                          isPause = false;
-                          preGame = false;
-                          mouthClosed = false;
-                          playerLast = "right";
-                          food.clear();
-                          getFood();
-                          score = 0;
-                          Navigator.pop(context);
-                        });
-                      },
-                      style: ButtonStyle(
-                        textStyle: MaterialStateProperty.all(
-                            const TextStyle(color: Colors.white)),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(1.0)),
-                      ),
-                      
-                      
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 3, 10, 229),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                        'RESTART',
-                        style: GoogleFonts.pressStart2p(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            fontSize: 14),
-                      ),
-                      ),
-                    ),
-
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },                   
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 3, 10, 229),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                        'HOME',
-                        style: GoogleFonts.pressStart2p(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            fontSize: 14),
-                      ),
-                      ),
-                    )
-                  ],
-                );
+                return AlertBox(score: score, restart: restart, displayText: 'GAME OVER',);
               });
         }
 
-        else if (score == 200) {
+        else if (score == 243) {
           setState(() {
             player = -1;
             score = 0;
@@ -166,72 +116,7 @@ class _GameScreen extends State<GameScreen> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Center(child: Text("WINNER!!")),
-                  content: Text('Your Score : ${(score).toString()}'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          player = 175;
-                          ghost1 = 17;
-                          ghost2 = 15;
-                          ghost3 = 348;
-                          ghost4 = 346;
-                          isPause = false;
-                          preGame = false;
-                          mouthClosed = false;
-                          playerLast = "right";
-                          food.clear();
-                          getFood();
-                          score = 0;
-                          Navigator.pop(context);
-                        });
-                      },
-                      style: ButtonStyle(
-                        textStyle: MaterialStateProperty.all(
-                            const TextStyle(color: Colors.white)),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(1.0)),
-                      ),
-                      
-                      
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 3, 10, 229),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                        'RESTART',
-                        style: GoogleFonts.pressStart2p(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            fontSize: 14),
-                      ),
-                      ),
-                    ),
-
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },                   
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 3, 10, 229),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                        'HOME',
-                        style: GoogleFonts.pressStart2p(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            fontSize: 14),
-                      ),
-                      ),
-                    )
-                  ],
-                );
+                return AlertBox(score: score, restart: restart,displayText: 'WINNER!!',);
               });
         }
 
@@ -296,6 +181,7 @@ class _GameScreen extends State<GameScreen> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -321,7 +207,6 @@ class _GameScreen extends State<GameScreen> {
                 }
               },
 
-              child: Container(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 14),
@@ -414,7 +299,7 @@ class _GameScreen extends State<GameScreen> {
                 ),
               ),
             ),
-          ),
+          
 
                   
           Padding(
