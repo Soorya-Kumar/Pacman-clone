@@ -20,17 +20,23 @@ class AlertBox extends StatelessWidget {
     return AlertDialog(
  
       alignment: Alignment.center,
-      backgroundColor: const Color.fromARGB(255, 19, 93, 222),
+      backgroundColor: const Color.fromARGB(255, 198, 180, 229),
       actionsAlignment: MainAxisAlignment.center,
       buttonPadding: const EdgeInsets.all(1.0),
       scrollable: false,
       titleTextStyle: GoogleFonts.pressStart2p(
-        color: const Color.fromARGB(255, 237, 237, 237),
-        fontSize: 14,
+        color: Colors.white,
+        fontSize: 18,
       ),
  
       title: Center(child: Text(displayText)),
-      content: Text('Your Score : ${(score).toString()}'),
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Your Score : ${(score).toString()}',style: GoogleFonts.pressStart2p(
+          color: Colors.white,
+          fontSize: 14,
+        ),),
+      ),
  
       actions: [
  
@@ -46,7 +52,7 @@ class AlertBox extends StatelessWidget {
           ),
           child: Container(
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 3, 10, 229),
+              color: Color.fromARGB(255, 161, 3, 229),
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             padding: const EdgeInsets.all(10.0),
@@ -67,7 +73,7 @@ class AlertBox extends StatelessWidget {
           },
           child: Container(
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 3, 10, 229),
+              color: Color.fromARGB(255, 161, 3, 229),
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             padding: const EdgeInsets.all(10.0),

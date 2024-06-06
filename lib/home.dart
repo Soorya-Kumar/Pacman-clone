@@ -1,4 +1,5 @@
 import 'package:dummy_app/game.dart';
+import 'package:dummy_app/how_to_play.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,7 +53,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                const GameScreen();
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const HowToPlayPage()));
               },
               child: Text(
                 'HOW TO PLAY',

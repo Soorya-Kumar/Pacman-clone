@@ -63,10 +63,11 @@ flutter:
   assets:
     - assets/images/ghost1.png
     - assets/images/ghost2.png
-    - assets/images/ghost3.png
     - assets/images/ghost4.png
     - assets/images/pacman.png
     - assets/images/background.png
+    - assets/images/fruit.jpg
+    - assets/images/pacman.gif
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

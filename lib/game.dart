@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:dummy_app/characters/ghost1.dart';
 import 'package:dummy_app/characters/ghost2.dart';
+import 'package:dummy_app/characters/ghost3.dart';
 import 'package:dummy_app/characters/ghost4.dart';
 import 'package:dummy_app/characters/pacman.dart';
 import 'package:dummy_app/movement/ghost_motion.dart';
@@ -46,6 +47,7 @@ class _GameScreen extends State<GameScreen> {
   int ghost2 = 15;
   int ghost3 = 348;
   int ghost4 = 346;
+  int fruit = -1;
 
   bool isPause = false;
   bool preGame = true;
@@ -58,6 +60,7 @@ class _GameScreen extends State<GameScreen> {
       ghost2 = 15;
       ghost3 = 348;
       ghost4 = 346;
+      fruit = -1;
       isPause = false;
       preGame = false;
       mouthClosed = false;
@@ -116,7 +119,7 @@ class _GameScreen extends State<GameScreen> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return AlertBox(score: score, restart: restart,displayText: 'WINNER!!',);
+                return AlertBox(score: 250, restart: restart,displayText: 'WINNER!!',);
               });
         }
 
@@ -151,7 +154,7 @@ class _GameScreen extends State<GameScreen> {
 
 
     //player movement and update
-     Timer.periodic(const Duration(milliseconds: 140), (timer) {
+      Timer.periodic(const Duration(milliseconds: 140), (timer) {
 
           if(isPause){
             setState(() {
@@ -172,11 +175,27 @@ class _GameScreen extends State<GameScreen> {
             score++;
           }
 
+          if(player == fruit){
+          setState(() {
+            score += 10;
+            fruit = -1;
+          });
+          }
+
         setState(() {
           player = movePlayer(player, playerLast, isPause);
         });
 
       },);
+
+      Timer.periodic(const Duration(milliseconds: 7000), (timer) {
+        
+        fruit = Random().nextInt(364);
+        while(walls.contains(fruit)){
+          fruit = Random().nextInt(364);
+        }     
+      
+      });
     }
   }
 
@@ -270,6 +289,10 @@ class _GameScreen extends State<GameScreen> {
                     else if (ghost4 == index) {
                       return const MyGhost4();
                     }
+
+                    else if (fruit == index) {
+                      return const MyGhost3();
+                    }
                     
                     else if (barriers.contains(index)) {
                       const Color wallColor = Color.fromARGB(255, 121, 122, 122);
@@ -308,9 +331,11 @@ class _GameScreen extends State<GameScreen> {
                   score: score,
                   highScore: highscore,
                   reset: pauseFunction,
-                  isPause: isPause,
-                  pregame: preGame,
-                  startGame: startGame)),
+                isPause: isPause,
+                pregame: preGame,
+                startGame: startGame),
+          ),
+
         ],
       ),
     );
