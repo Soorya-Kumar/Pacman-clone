@@ -44,8 +44,8 @@ class _GameScreen extends State<GameScreen> {
 
   int player = 175;
   
-  int ghost1 = 17;
-  int ghost2 = 15;
+  int ghost1 = 15;
+  int ghost2 = 17;
   int ghost3 = 348;
   int ghost4 = 346;
   int fruit = -1;
@@ -131,20 +131,24 @@ class _GameScreen extends State<GameScreen> {
 
 
       //ghost movement and update
-      Timer.periodic(const Duration(milliseconds: 160), (timer) {
+      Timer.periodic(const Duration(milliseconds: 200), (timer) {
         if (!isPause) {
-          List<dynamic> first = hardGhostMotion(ghost1, player,ghostLast1);
-          List<dynamic> second = easyGhostMotion(ghost2, ghostLast2);
-          List<dynamic> third = hardGhostMotion(ghost3, player,ghostLast3);
-          List<dynamic> fourth = easyGhostMotion(ghost4, ghostLast4);
+          List<dynamic> first = hardGhostMotion(ghost1,player,ghostLast1,[]);
+          List<dynamic> second = easyGhostMotion(ghost2,ghostLast2);
+          List<dynamic> third = hardGhostMotion(ghost3,player,ghostLast3,[first[1],second[1]]);
+          List<dynamic> fourth = easyGhostMotion(ghost4,ghostLast4);
 
           setState(() {
-            ghostLast1 = first[0];
-            ghost1 = first[1];
+            if(score > 40){
+              ghostLast1 = first[0];
+              ghost1 = first[1];
+            }
             ghostLast2 = second[0];
             ghost2 = second[1];
-            ghostLast3 = third[0];
-            ghost3 = third[1];
+            if(score > 70){
+              ghostLast3 = third[0];
+              ghost3 = third[1];
+            }
             ghostLast4 = fourth[0];
             ghost4 = fourth[1];
           });
@@ -155,7 +159,7 @@ class _GameScreen extends State<GameScreen> {
 
 
     //player movement and update
-      Timer.periodic(const Duration(milliseconds: 140), (timer) {
+      Timer.periodic(const Duration(milliseconds: 150), (timer) {
 
           if(isPause){
             setState(() {

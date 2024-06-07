@@ -14,7 +14,7 @@ double calculateDistance((int,int) a, (int,int) b){
   return sqrt(pow(a.$1 - b.$1, 2) + pow(a.$2 - b.$2, 2));
 }
 
-List<int> hardGhostMotion(int ghostPosition, int playerPosition, int lastGhostPosition) {
+List<int> hardGhostMotion(int ghostPosition, int playerPosition, int lastGhostPosition, List<int> otherGhosts) {
   (int,int) pacman = calculate2D(playerPosition); 
   
   List<int> possibleMoves = [];
@@ -30,6 +30,9 @@ List<int> hardGhostMotion(int ghostPosition, int playerPosition, int lastGhostPo
   if (!walls.contains(right)) possibleMoves.add(right);
 
   possibleMoves.remove(lastGhostPosition);
+  for(int i=0;i<otherGhosts.length;i++){
+    possibleMoves.remove(otherGhosts[i]);
+  }
 
   if (possibleMoves.isEmpty) {
     return [ghostPosition, lastGhostPosition]; 
