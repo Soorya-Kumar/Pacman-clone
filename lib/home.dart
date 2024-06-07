@@ -1,5 +1,5 @@
-import 'package:dummy_app/game.dart';
-import 'package:dummy_app/how_to_play.dart';
+import 'package:Pacman_GO/game.dart';
+import 'package:Pacman_GO/how_to_play.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

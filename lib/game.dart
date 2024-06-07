@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:dummy_app/characters/ghost1.dart';
-import 'package:dummy_app/characters/ghost2.dart';
-import 'package:dummy_app/characters/ghost3.dart';
-import 'package:dummy_app/characters/ghost4.dart';
-import 'package:dummy_app/characters/pacman.dart';
-import 'package:dummy_app/movement/ghost_motion.dart';
-import 'package:dummy_app/map/pixel.dart';
-import 'package:dummy_app/map/wall.dart';
-import 'package:dummy_app/movement/player_motion.dart';
-import 'package:dummy_app/widgets/alert_widget.dart';
-import 'package:dummy_app/widgets/bottom_bar.dart';
+import 'package:Pacman_GO/characters/ghost1.dart';
+import 'package:Pacman_GO/characters/ghost2.dart';
+import 'package:Pacman_GO/characters/ghost3.dart';
+import 'package:Pacman_GO/characters/ghost4.dart';
+import 'package:Pacman_GO/characters/pacman.dart';
+import 'package:Pacman_GO/movement/ghost_motion.dart';
+import 'package:Pacman_GO/map/pixel.dart';
+import 'package:Pacman_GO/map/wall.dart';
+import 'package:Pacman_GO/movement/player_motion.dart';
+import 'package:Pacman_GO/widgets/alert_widget.dart';
+import 'package:Pacman_GO/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:dummy_app/home.dart';
+import 'package:Pacman_GO/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {

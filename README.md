@@ -1,4 +1,4 @@
-# dummy_app
+# Pacman_GO
 
 A new Flutter project.
 
