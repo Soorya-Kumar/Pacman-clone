@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyWall extends StatelessWidget {
   
 
-  MyWall({required this.innerColor, required this.outerColor, this.child, super.key});
+  const MyWall({required this.innerColor, required this.outerColor, this.child, super.key});
 
   final Color innerColor;
   final Color outerColor;
