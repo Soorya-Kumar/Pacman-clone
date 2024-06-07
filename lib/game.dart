@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:Pacman_GO/characters/ghost1.dart';
 import 'package:Pacman_GO/characters/ghost2.dart';
 import 'package:Pacman_GO/characters/ghost3.dart';
 import 'package:Pacman_GO/characters/ghost4.dart';
 import 'package:Pacman_GO/characters/pacman.dart';
-import 'package:Pacman_GO/movement/ghost_motion.dart';
 import 'package:Pacman_GO/map/pixel.dart';
 import 'package:Pacman_GO/map/wall.dart';
+import 'package:Pacman_GO/movement/easy_ghost_motion.dart';
 import 'package:Pacman_GO/movement/player_motion.dart';
+import 'package:Pacman_GO/movement/hard_ghost_motion.dart';
 import 'package:Pacman_GO/widgets/alert_widget.dart';
 import 'package:Pacman_GO/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +34,16 @@ class _GameScreen extends State<GameScreen> {
   List<int> food = [];
 
   String playerLast = "right";
-  String ghostLast1 = "left";
-  String ghostLast2 = "left";
-  String ghostLast3 = "left";
-  String ghostLast4 = "down";
+  int ghostLast1 = 16;
+  int ghostLast2 = 29;
+  int ghostLast3 = 347;
+  int ghostLast4 = 345;
 
   int score = 0;
   int highscore = 0;
 
   int player = 175;
+  
   int ghost1 = 17;
   int ghost2 = 15;
   int ghost3 = 348;
@@ -132,20 +133,20 @@ class _GameScreen extends State<GameScreen> {
       //ghost movement and update
       Timer.periodic(const Duration(milliseconds: 160), (timer) {
         if (!isPause) {
-          List<dynamic> ghost1st = moveGhost(ghostLast1, ghost1, 14, walls);
-          List<dynamic> ghost2nd = moveGhost(ghostLast2, ghost2, 14, walls);
-          List<dynamic> ghost3rd = moveGhost(ghostLast3, ghost3, 14, walls);
-          List<dynamic> ghost4th = moveGhost(ghostLast4, ghost4, 14, walls);
+          List<dynamic> first = hardGhostMotion(ghost1, player,ghostLast1);
+          List<dynamic> second = easyGhostMotion(ghost2, ghostLast2);
+          List<dynamic> third = hardGhostMotion(ghost3, player,ghostLast3);
+          List<dynamic> fourth = easyGhostMotion(ghost4, ghostLast4);
 
           setState(() {
-            ghostLast1 = ghost1st[0].toString();
-            ghost1 = ghost1st[1] as int;
-            ghostLast2 = ghost2nd[0].toString();
-            ghost2 = ghost2nd[1] as int;
-            ghostLast3 = ghost3rd[0].toString();
-            ghost3 = ghost3rd[1] as int;
-            ghostLast4 = ghost4th[0].toString();
-            ghost4 = ghost4th[1] as int;
+            ghostLast1 = first[0];
+            ghost1 = first[1];
+            ghostLast2 = second[0];
+            ghost2 = second[1];
+            ghostLast3 = third[0];
+            ghost3 = third[1];
+            ghostLast4 = fourth[0];
+            ghost4 = fourth[1];
           });
         }
       });
@@ -296,7 +297,7 @@ class _GameScreen extends State<GameScreen> {
                     
                     else if (barriers.contains(index)) {
                       const Color wallColor = Color.fromARGB(255, 121, 122, 122);
-                      return MyWall(
+                      return const MyWall(
                         innerColor: wallColor,
                         outerColor: wallColor,
                         //child: Text(index.toString(),style: const TextStyle(color: Colors.white),),
@@ -304,14 +305,14 @@ class _GameScreen extends State<GameScreen> {
                     } 
                     
                     else if (preGame || food.contains(index)) {
-                     return MyWall(
-                        innerColor: const Color.fromARGB(255, 172, 79, 233),
-                        outerColor: const Color.fromARGB(255, 6, 6, 6),
+                      return const MyWall(
+                        innerColor: Color.fromARGB(255, 172, 79, 233),
+                        outerColor: Color.fromARGB(255, 6, 6, 6),
                       );
                     } 
                     
                     else {
-                      return MyWall(
+                      return const MyWall(
                         innerColor: Colors.black,
                         outerColor: Colors.black,
                       );
