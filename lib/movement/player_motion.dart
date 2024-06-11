@@ -1,4 +1,3 @@
-//This file is a separate file from the main game logic file, and contains the logic for the movement of the player only. 
 import 'package:Pacman_GO/map/wall.dart';
 
 int moveLeft(int player) {
